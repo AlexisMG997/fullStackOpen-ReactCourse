@@ -16,7 +16,7 @@ sequenceDiagram
 
   browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
   activate server
-  server -->> browser: JS File 
+  server -->> browser: JS File
   deactivate server
 
   browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
