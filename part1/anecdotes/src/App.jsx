@@ -42,9 +42,9 @@ function App() {
     votesCopy = [...votes];
     votesCopy[index] += 1;
     setVotes(votesCopy);
-    let a = [...votesCopy];
+    let highestValues = [...votesCopy];
     a.sort();
-    mostVoted = a[votesCopy.length - 1];
+    mostVoted = highestValues[votesCopy.length - 1];
     console.log(mostVoted);
     votesCopy.map((val, index) => {
       if (val == mostVoted) {
