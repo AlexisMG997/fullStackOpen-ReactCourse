@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Persons from "./components/Persons";
 import PersonForm from "./components/PersonForm";
+import Filter from "./components/Filter";
 
 function App() {
   const [persons, setPersons] = useState([
@@ -23,14 +24,14 @@ function App() {
     if (!copyPersons.find((x) => x.name === newName)) {
       setPersons(persons.concat(personObject));
       copyPersons = persons.concat(personObject);
-    } else alert("Name cannot be the same that one from the list");
+    } else {alert("Name cannot be the same that one from the list");}
     setNewName("");
     setNewNumber("");
   };
 
   const filterResult = (event) => {
     console.log(event.target.value);
-    const value = event.target.value;
+    const value = event.target.value; 
     console.log(persons.find((x) => x.name === value || x.number === value));
     setFilter(persons.find((x) => x.name === value || x.number === value));
   };
@@ -48,10 +49,12 @@ function App() {
   return (
     <div>
       <h2>PhoneBook</h2>
-      <div>
+      {/* <div>
         Filter shown with <input onChange={filterResult} />
-      </div>
+      </div> */}
+      <Filter filterResult={filterResult}/>
       <PersonForm
+      key={persons.length}
         addPerson={addPerson}
         handlePersonChange={handlePersonChange}
         handleNumberChange={handleNumberChange}
