@@ -1,18 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Persons from "./components/Persons";
 import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
+import axios from 'axios';
 
 function App() {
-  const [persons, setPersons] = useState([
-    {
-      name: "Arto Hellas",
-      number: "773-663-5632",
-    },
-  ]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/persons')
+    .then( response => {
+      const data = response.data;
+      setPersons(data);
+    })
+  }, []);
 
   const addPerson = (event) => {
     event.preventDefault();
@@ -49,9 +53,6 @@ function App() {
   return (
     <div>
       <h2>PhoneBook</h2>
-      {/* <div>
-        Filter shown with <input onChange={filterResult} />
-      </div> */}
       <Filter filterResult={filterResult}/>
       <PersonForm
       key={persons.length}
@@ -61,17 +62,6 @@ function App() {
         newNum={newName}
         newNumber={newNumber}
       />
-      {/* <form onSubmit={addPerson}>
-        <div>
-          name: <input value={newName} onChange={handlePersonChange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form> */}
       <Persons persons={persons} filters={filter} />
     </div>
   );
